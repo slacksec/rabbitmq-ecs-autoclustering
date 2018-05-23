@@ -6,7 +6,7 @@ RUN groupadd -r rabbitmq && useradd -r -d /var/lib/rabbitmq -m -g rabbitmq rabbi
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
 RUN set -x \
-	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget apt-transport-https && rm -rf /var/lib/apt/lists/* \
+	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget sudo apt-transport-https && rm -rf /var/lib/apt/lists/* \
 	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
 	&& wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
 	&& export GNUPGHOME="$(mktemp -d)" \
@@ -47,8 +47,8 @@ ENV RABBITMQ_LOGS=- RABBITMQ_SASL_LOGS=-
 
 # http://www.rabbitmq.com/install-debian.html
 # "Please note that the word testing in this line refers to the state of our release of RabbitMQ, not any particular Debian distribution."
-RUN wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc |  apt-key add -
-RUN wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc |  apt-key add -
+RUN wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc | sudo apt-key add -
+RUN wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
 RUN echo "deb https://dl.bintray.com/rabbitmq/debian jessie main" | sudo tee /etc/apt/sources.list.d/bintray.rabbitmq.list
 
 ENV RABBITMQ_VERSION 3.7*
