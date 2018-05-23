@@ -21,6 +21,7 @@ RUN set -x \
 # See:
 #  - http://www.erlang.org/download.html
 #  - https://www.erlang-solutions.com/resources/download.html
+RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 434975BD900CCBE4F7EE1B1ED208507CA14F4FCA
 RUN echo 'deb http://packages.erlang-solutions.com/debian jessie contrib' > /etc/apt/sources.list.d/erlang.list
 
 # install Erlang
