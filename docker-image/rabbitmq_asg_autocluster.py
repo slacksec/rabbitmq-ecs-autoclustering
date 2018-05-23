@@ -25,8 +25,8 @@ except ImportError:
     import boto3
 
 # initialize boto client and ec2 resource
-client_asg = boto3.client('autoscaling', region_name='us-east-1')
-ec2 = boto3.resource('ec2', region_name='us-east-1')
+client_asg = boto3.client('autoscaling', region_name='ap-southeast-2')
+ec2 = boto3.resource('ec2', region_name='ap-southeast-2')
 
 def run(cmd):
     """
@@ -100,7 +100,7 @@ def get_asg_instance_private_dnsnames():
     private_short_dnsnames = []
     for instance_id in get_asg_instance_ids():
         instance = ec2.Instance(instance_id)
-        private_short_dnsnames.append(re.sub('.ec2.internal', '', instance.private_dns_name))
+        private_short_dnsnames.append(re.sub('.ap-southeast-2.compute.internal', '', instance.private_dns_name))
 
     return private_short_dnsnames
 
